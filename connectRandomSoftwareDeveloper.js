@@ -1,16 +1,10 @@
 
 function ticker(secToPlay){
     console.log('secToPlay',secToPlay/1000)
-    let secCounter = 0
-    let interval = setInterval(()=>{
-        secCounter++
-        console.log(secCounter)
-        if(secCounter >= secToPlay/1000){
-            clearInterval(interval)
-            SetNewIntervalRandomly()
-        }
-    },1000)
-    setTimeout(()=>console.log('finish'),secToPlay)
+    setTimeout(()=> {
+
+        SetNewIntervalRandomly()
+    },secToPlay)
 }
 
 ticker(3000)
