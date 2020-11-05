@@ -11,8 +11,11 @@ document.addEventListener('DOMContentLoaded', function () {
               let agreement = document.querySelector('#termAgreement').checked
           if (!agreement){
               console.log('need to agree the terms')
+              document.querySelector('#condition').style = "color: red;"
+              setTimeout(()=>{
+                  document.querySelector('#condition').style = "color: black;"
+              },1000)
           } else {
-              console.log('log')
               chrome.tabs.sendMessage(tabs[0].id, {memberNum : memberNumberToConnect, trailMode : trailMode})
           }
       })

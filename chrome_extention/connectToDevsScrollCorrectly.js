@@ -7,7 +7,6 @@ let pixelAddToGoalCoord = 587.5
 let index = 0
 let positionY = 0
 let trailMode = true
-let REReal = /^real$/
 
 function startToConnect(request){
     setTheOptions()
@@ -27,7 +26,6 @@ function setTheOptions(){
     index = 0
     positionY = 0
     trailMode = true
-    REReal = /^real$/
 }
 
 function connectToEightMembers(){
