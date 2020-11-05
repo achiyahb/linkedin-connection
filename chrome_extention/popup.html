@@ -5,7 +5,18 @@
     <title>popup</title>
 </head>
 <body>
+<p>how many people you wish to connect? we recommend less then 80</p>
+<input value="80" id="membersNumber" aria-label="member number">
+<p>Are you interested in running the bot in trial or real mode?</p>
+<label for="modes"></label>
+<select name="modes" id="modes">
+    <option value="trail">Trail</option>
+    <option value="real">Real</option>
+</select> <br><br>
+<input type="checkbox" id="termAgreement" name="termAgreement" value="agree">
+<label for="termAgreement">I confirm that I'm aware that the use of this bot is in my own responsibility</label><br><br>
  <button>connect members now</button>
  <script src="popup.js" charset="utf-8"></script>
 </body>
 </html>
+

@@ -6,18 +6,28 @@ let windowCard
 let pixelAddToGoalCoord = 587.5
 let index = 0
 let positionY = 0
-let agreementToTerm = 'trail'
 let trailMode = true
 let REReal = /^real$/
 
-function startToConnect(){
-    windowCard = document.querySelector('.artdeco-modal__content.discover-cohort-recommendations-modal__content')
-    numberClicksGoal = prompt('how many people you wish to connect? we recommend less then 80','80')
-    agreementToTerm = prompt('Are you interested in running the bot in trial or real mode? For real mode, write real.\n' +
-        'By sending this message, you confirm that you are aware that the use of this bot is at your own responsibility.','trail')
-    trailMode = !REReal.test(agreementToTerm.toLowerCase())
+function startToConnect(request){
+    setTheOptions()
+    numberClicksGoal = request.memberNum
+    trailMode = request.trailMode
     trailMode ? console.log('trail mode start') : console.log('real mode start')
     connectToEightMembers()
+}
+
+function setTheOptions(){
+    startFromIndex = 0
+    endFromIndex = 7
+    numberClicksGoal = 80
+    allClicksCounter = null
+    windowCard = document.querySelector('.artdeco-modal__content.discover-cohort-recommendations-modal__content')
+    pixelAddToGoalCoord = 587.5
+    index = 0
+    positionY = 0
+    trailMode = true
+    REReal = /^real$/
 }
 
 function connectToEightMembers(){
@@ -74,7 +84,7 @@ function scrollDown(){
 }
 
 chrome.runtime.onMessage.addListener(function (request) {
-    startToConnect()
+    startToConnect(request)
 })
 
 console.log('connector is activated')
