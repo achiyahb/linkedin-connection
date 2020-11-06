@@ -1,0 +1,31 @@
+#container {
+    background-color: aqua;
+    margin: 0;
+    padding: 1.5rem;
+    width: 18rem;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#title {
+    margin-top: 0;
+}
+
+p {
+    font-size: 1.25rem;
+    margin-bottom: 0.6rem;
+}
+
+button{
+    font-size: 1rem;
+    background-color: #85bf31;
+    color: white;
+}
+select{
+    font-size: 1rem;
+}
+input{
+    font-size: 1rem;
+}

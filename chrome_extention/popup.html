@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>popup</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="container">
+    <h1 id="title">Linkedin Connector</h1>
 <p>how many people you wish to connect? We recommend no more than 80</p>
 <input value="80" id="membersNumber" aria-label="member number">
 <p>Are you interested in running the bot in trial or real mode?</p>
@@ -15,7 +18,9 @@
 </select> <br><br>
 <input type="checkbox" id="termAgreement" name="termAgreement" value="agree">
 <label for="termAgreement" id="condition">I confirm that I'm aware that the use of this bot is in my own responsibility</label><br><br>
- <button>connect members now</button>
+ <button id="submit">connect members now</button>
+    <p id="resMassage"></p>
+</div>
  <script src="popup.js" charset="utf-8"></script>
 </body>
 </html>

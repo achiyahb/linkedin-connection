@@ -7,13 +7,14 @@ let pixelAddToGoalCoord = 587.5
 let index = 0
 let positionY = 0
 let trailMode = true
+let stop = false
 
 function startToConnect(request){
     setTheOptions()
-    numberClicksGoal = request.memberNum
+    numberClicksGoal = request.memberNum -1
     trailMode = request.trailMode
     trailMode ? console.log('trail mode start') : console.log('real mode start')
-    connectToEightMembers()
+    return connectToEightMembers()
 }
 
 function setTheOptions(){
@@ -44,25 +45,29 @@ function connectToEightMembers(){
     console.log(indexNumberArray)
     startFromIndex += 8
     endFromIndex += 8
-    SetNewIntervalRandomly(indexNumberArray,membersCards)
+   return  SetNewIntervalRandomly(indexNumberArray,membersCards)
 }
 
 function SetNewIntervalRandomly(indexNumberArray,membersCards){
     let randomNumberBetween1to10 = Math.random()
     let randomSecToPlay = 1500 * randomNumberBetween1to10 + 1500
-    ticker(randomSecToPlay,indexNumberArray,membersCards)
+    return ticker(randomSecToPlay,indexNumberArray,membersCards)
 }
 
-function ticker(someSecBeforeClick,indexNumberArray,membersCards){
+async function ticker(someSecBeforeClick,indexNumberArray,membersCards){
     console.log('someSecBeforeClick',someSecBeforeClick/1000)
-    setTimeout(()=> {
+    await setTimeout(async ()=> {
+        await backgroundConnection()
+        console.log(stop)
+        if (stop) return
         let i = indexNumberArray[index]
         let connectButton = membersCards[i].querySelector('.full-width');
-        trailMode ? console.log(connectButton) : connectButton.click();
+        trailMode ? console.log(connectButton): connectButton.click();
         allClicksCounter++
         index++
         if (allClicksCounter >+ numberClicksGoal){
             console.log('finish')
+            return 'finish'
         } else if (index >= 6) {
             index = 0
             setTimeout(()=>{scrollDown()},1000)
@@ -82,7 +87,17 @@ function scrollDown(){
 }
 
 chrome.runtime.onMessage.addListener(function (request) {
-    startToConnect(request)
+    console.log('needToConnect?',request.connect)
+    if (request.connect){
+        startToConnect(request)
+    } else {
+        stop = true
+    }
 })
 
-console.log('connector is activated')
+async function backgroundConnection(){
+    await chrome.runtime.sendMessage({type: 'from_content_script'}, async (response) => {
+        stop = response
+        return await response
+    });
+}
