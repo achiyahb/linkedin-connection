@@ -16,4 +16,4 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 // popup connection
 
-alert('background is here')
+
