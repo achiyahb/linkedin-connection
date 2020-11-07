@@ -14,7 +14,7 @@ function startToConnect(request){
     numberClicksGoal = request.memberNum -1
     trailMode = request.trailMode
     trailMode ? console.log('trail mode start') : console.log('real mode start')
-    return connectToEightMembers()
+    return choseTheCorrectEightMembers()
 }
 
 function setTheOptions(){
@@ -29,7 +29,7 @@ function setTheOptions(){
     trailMode = true
 }
 
-function connectToEightMembers(){
+function choseTheCorrectEightMembers(){
     console.log('startFromIndex:',startFromIndex)
     console.log('endFromIndex:',endFromIndex)
     let membersCards = windowCard.querySelectorAll('.discover-entity-type-card');
@@ -58,11 +58,10 @@ async function ticker(someSecBeforeClick,indexNumberArray,membersCards){
     console.log('someSecBeforeClick',someSecBeforeClick/1000)
     await setTimeout(async ()=> {
         await backgroundConnection()
-        console.log(stop)
         if (stop) return
         let i = indexNumberArray[index]
         let connectButton = membersCards[i].querySelector('.full-width');
-        trailMode ? console.log(connectButton): connectButton.click();
+        trailMode ? connectButton.style = 'background-color: aqua;': connectButton.click();
         allClicksCounter++
         index++
         if (allClicksCounter >+ numberClicksGoal){
@@ -82,7 +81,7 @@ function scrollDown(){
     windowCard.scroll(0,positionY)
     setTimeout(()=>{
         windowCard.scroll(0,positionY)
-        setTimeout(()=>connectToEightMembers(),1000)
+        setTimeout(()=>choseTheCorrectEightMembers(),1000)
     },1000)
 }
 
