@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 let needToConnect = changeButton()
                 backgroundConnection(needToConnect)
                 let memberNumberToConnect = document.querySelector('#membersNumber').value
-                let trailMode = document.querySelector('#modes').value === 'trail'
+                let trialMode = document.querySelector('#modes').value === 'trial'
                 let agreement = document.querySelector('#termAgreement').checked
                 if (!agreement) {
                     console.log('need to agree the terms')
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     chrome.tabs.sendMessage(tabs[0].id, {
                         memberNum: memberNumberToConnect,
-                        trailMode: trailMode,
+                        trialMode: trialMode,
                         connect: needToConnect,
                         filterTermArray:filterTermArray
                     }, result)

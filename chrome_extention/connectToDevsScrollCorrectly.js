@@ -6,7 +6,7 @@ let windowCard
 let pixelAddToGoalCoord = 587.5
 let index = 0
 let positionY = 0
-let trailMode = true
+let trialMode = true
 let stop = false
 let negativeFilterTerm = []
 let positiveFilterTerm = []
@@ -15,7 +15,7 @@ let positiveFilterTerm = []
 function startToConnect(request){
     setTheOptions()
     numberClicksGoal = request.memberNum -1
-    trailMode = request.trailMode
+    trialMode = request.trialMode
     request.filterTermArray.forEach(termObj =>{
         if (termObj.detect){
             positiveFilterTerm.push(termObj.text)
@@ -23,7 +23,7 @@ function startToConnect(request){
             negativeFilterTerm.push(termObj.text)
         }
     })
-    trailMode ? console.log('trail mode start') : console.log('real mode start')
+    trialMode ? console.log('trial mode start') : console.log('real mode start')
     return choseTheCorrectEightMembers()
 }
 
@@ -36,7 +36,7 @@ function setTheOptions(){
     pixelAddToGoalCoord = 587.5
     index = 0
     positionY = 0
-    trailMode = true
+    trialMode = true
 }
 
 function choseTheCorrectEightMembers(){
@@ -84,7 +84,7 @@ async function ticker(someSecBeforeClick,indexNumberArray,membersCards){
         if (stop) return
         let i = indexNumberArray[index]
         let connectButton = membersCards[i].querySelector('.full-width');
-        trailMode ? connectButton.style = 'background-color: aqua;': connectButton.click();
+        trialMode ? connectButton.style = 'background-color: aqua;': connectButton.click();
         allClicksCounter++
         index++
         if (allClicksCounter >+ numberClicksGoal){
