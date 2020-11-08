@@ -8,20 +8,34 @@
 <body>
 <div id="container">
     <h1 id="title">Linkedin Connector</h1>
-<p>how many people you wish to connect? We recommend no more than 80</p>
-<input value="80" id="membersNumber" aria-label="member number">
-<p>Are you interested in running the bot in trial or real mode?</p>
-<label for="modes"></label>
-<select name="modes" id="modes">
-    <option value="trail">Trail</option>
-    <option value="real">Real</option>
-</select> <br><br>
-<input type="checkbox" id="termAgreement" name="termAgreement" value="agree">
-<label for="termAgreement" id="condition">I confirm that I'm aware that the use of this bot is in my own responsibility</label><br><br>
- <button id="submit">connect members now</button>
+    <p>how many people you wish to connect? We recommend no more than 80</p>
+    <input value="80" id="membersNumber" aria-label="member number">
+
+    <p>option: chose word to avoid or detect</p>
+    <input id="filterInput" aria-label="filter term">
+    <label for="filters"></label>
+    <select name="filters" id="filters">
+        <option value="detect">Detect</option>
+        <option value="avoid">Avoid</option>
+    </select>
+    <button onclick="addFilterTerm()" id="addButton">+</button>
+    <div id="termsDiv">
+    </div>
+    <br><br>
+
+    <span>Are you interested in running the bot in trial or real mode?</span>
+    <label for="modes"></label>
+    <select name="modes" id="modes">
+        <option value="trail">Trail</option>
+        <option value="real">Real</option>
+    </select> <br><br>
+    <input type="checkbox" id="termAgreement" name="termAgreement" value="agree">
+    <label for="termAgreement" id="condition">I confirm that I'm aware that the use of this bot is in my own
+        responsibility</label><br><br>
+    <button id="submit" onclick="startToConnect">connect members now</button>
     <p id="resMassage"></p>
 </div>
- <script src="popup.js" charset="utf-8"></script>
+<script src="popup.js" charset="utf-8"></script>
 </body>
 </html>
 

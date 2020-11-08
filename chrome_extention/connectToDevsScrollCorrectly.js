@@ -8,11 +8,21 @@ let index = 0
 let positionY = 0
 let trailMode = true
 let stop = false
+let negativeFilterTerm = []
+let positiveFilterTerm = []
+
 
 function startToConnect(request){
     setTheOptions()
     numberClicksGoal = request.memberNum -1
     trailMode = request.trailMode
+    request.filterTermArray.forEach(termObj =>{
+        if (termObj.detect){
+            positiveFilterTerm.push(termObj.text)
+        } else {
+            negativeFilterTerm.push(termObj.text)
+        }
+    })
     trailMode ? console.log('trail mode start') : console.log('real mode start')
     return choseTheCorrectEightMembers()
 }
@@ -35,6 +45,9 @@ function choseTheCorrectEightMembers(){
     let membersCards = windowCard.querySelectorAll('.discover-entity-type-card');
     let indexNumberArray = []
     for (let i = endFromIndex; i >= startFromIndex; i--){
+        let positiveFilter = checkFilter(i,membersCards,'positive')
+        let negativeFilter = checkFilter(i,membersCards)
+        if (!positiveFilter || negativeFilter) continue
         let randomBoolean = Math.random() >= 0.5;
         if (randomBoolean){
             indexNumberArray.push(i)
@@ -42,10 +55,20 @@ function choseTheCorrectEightMembers(){
             indexNumberArray.unshift(i)
         }
     }
+
     console.log(indexNumberArray)
     startFromIndex += 8
     endFromIndex += 8
+    if (indexNumberArray.length === 0) scrollDown()
    return  SetNewIntervalRandomly(indexNumberArray,membersCards)
+}
+
+function checkFilter(i,memberCards,positive){
+    let ReArray = positive ? positiveFilterTerm : negativeFilterTerm
+    let card = memberCards[i].outerText.toLowerCase().split(' ').join('').split('-').join()
+    return ReArray.some(exp =>
+        RegExp(exp).test(card)
+    )
 }
 
 function SetNewIntervalRandomly(indexNumberArray,membersCards){
@@ -67,7 +90,7 @@ async function ticker(someSecBeforeClick,indexNumberArray,membersCards){
         if (allClicksCounter >+ numberClicksGoal){
             console.log('finish')
             return 'finish'
-        } else if (index >= 6) {
+        } else if (index >= 6 || index >= indexNumberArray.length) {
             index = 0
             setTimeout(()=>{scrollDown()},1000)
         } else {
@@ -86,12 +109,8 @@ function scrollDown(){
 }
 
 chrome.runtime.onMessage.addListener(function (request) {
-    console.log('needToConnect?',request.connect)
-    if (request.connect){
+    console.log('needToConnect?',request)
         startToConnect(request)
-    } else {
-        stop = true
-    }
 })
 
 async function backgroundConnection(){

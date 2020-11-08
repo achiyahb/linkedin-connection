@@ -2,7 +2,7 @@
     background-color: aqua;
     margin: 0;
     padding: 1.5rem;
-    width: 18rem;
+    width: 20rem;
 }
 body {
     margin: 0;
@@ -18,6 +18,11 @@ p {
     margin-bottom: 0.6rem;
 }
 
+span {
+    font-size: 1.25rem;
+    margin-bottom: 0.6rem;
+}
+
 button{
     font-size: 1rem;
     background-color: #85bf31;
@@ -28,4 +33,12 @@ select{
 }
 input{
     font-size: 1rem;
+}
+
+.positive{
+    color: #85bf31;
+}
+
+.negative{
+    color: red;
 }
