@@ -45,8 +45,8 @@ function choseTheCorrectEightMembers(){
     let membersCards = windowCard.querySelectorAll('.discover-entity-type-card');
     let indexNumberArray = []
     for (let i = endFromIndex; i >= startFromIndex; i--){
-        let positiveFilter = checkFilter(i,membersCards,'positive')
-        let negativeFilter = checkFilter(i,membersCards)
+        let positiveFilter = positiveFilterTerm.length ?  checkFilter(i,membersCards,'positive') : true
+        let negativeFilter = negativeFilterTerm.length ? checkFilter(i,membersCards) : false
         if (!positiveFilter || negativeFilter) continue
         let randomBoolean = Math.random() >= 0.5;
         if (randomBoolean){
