@@ -10,6 +10,7 @@ let trialMode = true
 let stop = false
 let negativeFilterTerm = []
 let positiveFilterTerm = []
+let scrollStarted = false
 
 
 function startToConnect(request){
@@ -100,11 +101,20 @@ async function ticker(someSecBeforeClick,indexNumberArray,membersCards){
 }
 
 function scrollDown(){
-    positionY += pixelAddToGoalCoord
+    if (!scrollStarted){
+        positionY += pixelAddToGoalCoord
+        scrollStarted = true
+    }
+    let membersCards = windowCard.querySelectorAll('.discover-entity-type-card');
     windowCard.scroll(0,positionY)
     setTimeout(()=>{
-        windowCard.scroll(0,positionY)
-        setTimeout(()=>choseTheCorrectEightMembers(),1000)
+      if(membersCards[endFromIndex]){
+          windowCard.scroll(0,positionY)
+          setTimeout(()=>choseTheCorrectEightMembers(),1000)
+          scrollStarted = false
+      } else {
+          scrollDown()
+      }
     },1000)
 }
 
