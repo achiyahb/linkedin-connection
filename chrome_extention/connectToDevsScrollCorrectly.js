@@ -66,7 +66,7 @@ function choseTheCorrectEightMembers(){
 
 function checkFilter(i,memberCards,positive){
     let ReArray = positive ? positiveFilterTerm : negativeFilterTerm
-    let card = memberCards[i].outerText.toLowerCase().split(' ').join('').split('-').join()
+    let card = memberCards[i].outerText.toLowerCase().split(' ').join('').split('-').join('')
     return ReArray.some(exp =>
         RegExp(exp).test(card)
     )

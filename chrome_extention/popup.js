@@ -35,8 +35,11 @@ document.addEventListener('DOMContentLoaded', function () {
         // document.querySelector('#resMassage').innerHTML = res
     }
     document.querySelector('#addButton').addEventListener('click', addFilterTerm, false)
-    document.querySelector('.terms').addEventListener('click', deleteTerm, false)
-
+    document.querySelector('#filterInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            addFilterTerm()
+        }
+    });
 }, false)
 
 
@@ -69,6 +72,7 @@ function addFilterTerm() {
     let detect = document.querySelector('#filters').value === 'detect'
     filterTermArray.push({text: filterTerm, detect: detect, id: 'id' + idCounter})
     idCounter++
+    document.querySelector('#filterInput').value = ''
     addTermsOnUi()
 }
 
@@ -80,11 +84,16 @@ let termDiv = `<span id="${obj.id}" class="terms ${obj.detect? 'positive' : 'neg
         divInner = divInner + termDiv
     }
     bigDiv.innerHTML = divInner
+    for (let obj of filterTermArray){
+        document.querySelector(`#${obj.id}`).addEventListener('click', deleteTerm, false)
+    }
+
 }
 
-function deleteTerm(id){
+function deleteTerm(e){
+    let id =  e.path[0].id
     let keyToRemove
-    let obj = filterTermArray.filter((obj,key)=> {
+    filterTermArray.forEach((obj,key)=> {
         if (obj.id === id) keyToRemove = key
     })
     filterTermArray.splice(keyToRemove,1)
