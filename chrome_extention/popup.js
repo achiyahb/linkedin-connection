@@ -68,7 +68,7 @@ chrome.runtime.sendMessage({type: 'popup_open'}, (res) => {
 });
 
 function addFilterTerm() {
-    let filterTerm = document.querySelector('#filterInput').value.toLowerCase().split(' ').join('').split('-').join()
+    let filterTerm = document.querySelector('#filterInput').value.toLowerCase().split(' ').join('').split('-').join('')
     let detect = document.querySelector('#filters').value === 'detect'
     filterTermArray.push({text: filterTerm, detect: detect, id: 'id' + idCounter})
     idCounter++

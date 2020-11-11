@@ -6,8 +6,10 @@ function checkThePagesTimePhrase(){
     let timesOnPage = document.querySelectorAll('.time-badge.time-ago')
     timesOnPage.forEach((phrase) => {
         let phraseText = phrase.innerText
-        let avoidPhrase = REArray.some( RExp => {
-            RegExp(RExp).test(phraseText)
+        let avoidPhrase
+        REArray.forEach( RExp => {
+            let avoid = RegExp(RExp).test(phraseText)
+            if (avoid) avoidPhrase =true
         })
         if(!avoidPhrase && !moreThenDayParse.includes(phraseText)){
             moreThenDayParse.push(phraseText)
@@ -27,13 +29,14 @@ function toTheNextPage(){
     })
     if (pageKey >= 9){
         console.log('finish')
+        backgroundConnection()
         return 'finish'
     } else {
         allPageButton[pageKey + 1].querySelector('button').click()
     }
 }
 
-checkAllMyInvention()
+
 
 function checkAllMyInvention(){
     checkThePagesTimePhrase()
@@ -44,4 +47,16 @@ function checkAllMyInvention(){
             checkAllMyInvention()
         },1000)
     }
+}
+
+chrome.runtime.onMessage.addListener(function (request) {
+    console.log('needToConnect?',request)
+    checkAllMyInvention()
+})
+
+async function backgroundConnection(){
+    await chrome.runtime.sendMessage({type: 'withdraw_Content',timesArray:moreThenDayParse}, async (response) => {
+        stop = response
+        return await response
+    });
 }

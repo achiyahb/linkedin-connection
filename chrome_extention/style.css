@@ -1,8 +1,6 @@
 #container {
-    background-color: aqua;
     margin: 0;
     padding: 1.5rem;
-    width: 20rem;
 }
 body {
     margin: 0;
@@ -41,4 +39,43 @@ input{
 
 .negative{
     color: red;
+}
+
+.terms{
+    cursor: pointer;
+}
+
+.terms:hover{
+    font-size: 1.45rem;
+    transition: all .4s ease;
+}
+#header{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+
+#popup{
+    width: 23rem;
+    background-color: #00ffff;
+    height: 32rem;
+}
+
+a{
+    text-decoration-line: none;
+    color: black;
+}
+
+.otherTab{
+    background-color: #078282FF;
+    padding-bottom: 0.5rem;
+    color: white;
+    border-left: solid #00ffff;
+}
+
+.tagText{
+    margin-left: 1rem;
+}
+
+.tab{
+    margin-top: 10px;
 }

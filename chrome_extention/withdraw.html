@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>withdraw</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="popup">
+    <div id="header">
+        <a href="popup.html">
+            <div class="otherTab"><span class="tagText">connect</span></div>
+        </a>
+        <a href="withdraw.html">
+            <div class="thisTab"><span class="tagText">withdraw</span></div>
+        </a>
+        <a href="searchConnector.html">
+            <div class="otherTab"><span class="tagText">by search</span></div>
+        </a>
+    </div>
+    <div id="container">
+        <h1 id="title">Linkedin Connector</h1>
+        <p>Check connection request times
+            <button id="checkButton">check</button>
+        </p>
+        <p>choose requests times to withdraw:</p>
+        <div id="timesList"></div>
+
+        <span>Withdraw from the login requests</span>
+
+        <button id="withdrawBtn" onclick="startToConnect">witdraw</button>
+        <p id="resMassage"></p>
+    </div>
+</div>
+<script src="withdrawPopup.js" charset="utf-8"></script>
+</body>
+</html>
