@@ -13,8 +13,9 @@ function startToWithdraw(){
                 if (checked){
                     chosenPhraseArray.push(timesArrayToWithdraw[i])
                 }
-                console.log(chosenPhraseArray)
             }
+            chrome.tabs.sendMessage(tabs[0].id, {text:'withdraw_start',chosenPhraseArray: chosenPhraseArray})
+
         })
 }
 
@@ -23,7 +24,7 @@ function startTimeCheck() {
         function (tabs) {
             getTimeArray()
             if(!timesArrayToWithdraw.length){
-                chrome.tabs.sendMessage(tabs[0].id, {text:'withdraw'})
+                chrome.tabs.sendMessage(tabs[0].id, {text:'check'})
                 let getArray = setInterval(()=>{
                     getTimeArray()
                     if(timesArrayToWithdraw.length){

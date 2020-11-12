@@ -23,7 +23,7 @@ span {
 
 button{
     font-size: 1rem;
-    background-color: #85bf31;
+    background-color: #00ff00;
     color: white;
 }
 select{
@@ -66,7 +66,7 @@ a{
 }
 
 .otherTab{
-    background-color: #078282FF;
+    background-color: #ff0080;
     padding-bottom: 0.5rem;
     color: white;
     border-left: solid #00ffff;
