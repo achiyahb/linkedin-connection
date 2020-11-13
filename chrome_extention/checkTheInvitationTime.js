@@ -97,6 +97,12 @@ function createIndexToWithdraw() {
             indexToWithdraw.push(key)
         }
     })
+    if (!indexToWithdraw.length) {
+       setTimeout(()=>{
+           toTheNextPage()
+           createIndexToWithdraw()
+       },1000)
+    }
     withdrawFromPeopleInPage(indexToWithdraw, 0)
 }
 
