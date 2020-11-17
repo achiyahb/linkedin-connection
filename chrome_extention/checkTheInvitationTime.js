@@ -108,7 +108,9 @@ function createIndexToWithdraw() {
 
 function withdrawFromPeopleInPage(indexToWithdraw, i) {
     let btnIndex = indexToWithdraw[i]
+    i++
     let withdrawBtn = document.querySelectorAll('.invitation-card__action-btn')[btnIndex]
+    console.log(withdrawBtn)
     if (btnIndex - lastScrollBtnIndex < 5) {
         scrollToTheButton(withdrawBtn, btnIndex,indexToWithdraw, i)
     } else {
@@ -120,7 +122,7 @@ function scrollToTheButton(withdrawBtn, btnIndex,indexToWithdraw, i) {
     let currentTop = document.documentElement.scrollTop
     let btnTop = withdrawBtn.getBoundingClientRect().top -100
     let needToScroll = btnTop - currentTop
-    let partToScroll = needToScroll/100
+    let partToScroll = 7
     let interval = setInterval(()=>{
         scrollByPlus(partToScroll)
         if (document.documentElement.scrollTop >= needToScroll){
@@ -128,7 +130,7 @@ function scrollToTheButton(withdrawBtn, btnIndex,indexToWithdraw, i) {
             lastScrollBtnIndex = btnIndex
             hitTheWithdrawBtn(withdrawBtn,indexToWithdraw, i)
         }
-    },50)
+    },10)
 }
 
 function scrollByPlus(pxToScroll){
