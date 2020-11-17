@@ -25,11 +25,18 @@
         </p>
         <p>choose requests times to withdraw:</p>
         <div id="timesList"></div>
-
-        <span>Withdraw from the login requests</span>
-
-        <button id="withdrawBtn" onclick="startToConnect">witdraw</button>
-        <p id="resMassage"></p>
+        <div id="withdrawSection">
+            <span>Withdraw from the invitation requests</span>
+            <br>
+            <div id="conditionWith">
+            <input type="checkbox" id="termAgreement" name="termAgreement" value="agree">
+            <label for="termAgreement" id="condition">I confirm that I'm aware that the use of this bot is in my own
+                responsibility</label>
+            </div>
+                <br><br>
+            <button id="withdrawBtn" onclick="startToConnect" disabled>witdraw</button>
+            <p id="resMassage"></p>
+        </div>
     </div>
 </div>
 <script src="withdrawPopup.js" charset="utf-8"></script>

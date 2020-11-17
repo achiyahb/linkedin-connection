@@ -1,15 +1,10 @@
-let REArray = ['1 month ago', '4 weeks ago']
-let moreThenDayParse = []
 let btnIndex = 0
 let withdrawCounter =0
 let startWithdraw = true
 let lastScrollBtnIndex = 0
 let trailMode =true
 
-
-
-
-function toTheNextPage() {
+function toTheNextPageWithdraw() {
     let allPageButton = document.querySelectorAll('.artdeco-pagination__indicator.artdeco-pagination__indicator--number.ember-view')
     let thisPageButton = document.querySelector('.artdeco-pagination__indicator.artdeco-pagination__indicator--number.active.ember-view')
     let pageKey
@@ -26,10 +21,6 @@ function toTheNextPage() {
         allPageButton[pageKey - 1].querySelector('button').click()
     }
 }
-
-
-
-
 
 function createIndexToWithdraw() {
     let indexToWithdraw = []
@@ -48,14 +39,6 @@ function createIndexToWithdraw() {
                     indexToWithdraw.push(key)
                 }
             })
-            if (!indexToWithdraw.length) {
-                setTimeout(()=>{
-                    toTheNextPage()
-                    setTimeout(()=>{
-                        createIndexToWithdraw()
-                    },2000)
-                },1000)
-            }
             withdrawFromPeopleInPage(indexToWithdraw, 0)
         } else {
             createIndexToWithdraw()
@@ -64,15 +47,6 @@ function createIndexToWithdraw() {
 }
 
 function withdrawFromPeopleInPage(indexToWithdraw, i) {
-    if (btnIndex >= indexToWithdraw[indexToWithdraw.length]) {
-        toTheNextPage()
-        btnIndex = 0
-        i=0
-        setTimeout(()=>{
-            createIndexToWithdraw()
-        },2000)
-        return
-    }
     btnIndex = indexToWithdraw[i]
     i++
     let withdrawBtn = document.querySelectorAll('.invitation-card__action-btn')[btnIndex]
@@ -136,7 +110,7 @@ function hitTheWithdrawBtn(withdrawBtn,indexToWithdraw, i){
 }
 
 function setValuesToNextPage(){
-    toTheNextPage()
+    toTheNextPageWithdraw()
     btnIndex = 0
     lastScrollBtnIndex = 0
     setTimeout(()=>{
@@ -146,8 +120,7 @@ function setValuesToNextPage(){
 
 chrome.runtime.onMessage.addListener(function (request) {
     if (request.text === 'withdraw_start') {
-        // REArray = request.chosenPhraseArray
+        REArray = request.chosenPhraseArray
         createIndexToWithdraw()
     }
 })
-

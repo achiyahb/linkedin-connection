@@ -15,7 +15,6 @@ function startToWithdraw(){
                 }
             }
             chrome.tabs.sendMessage(tabs[0].id, {text:'withdraw_start',chosenPhraseArray: chosenPhraseArray})
-
         })
 }
 
@@ -47,6 +46,7 @@ function  createOptions(){
         innerHtml = innerHtml + htmlString
     })
     listDiv.innerHTML = innerHtml
+    document.getElementById("withdrawBtn").disabled = false;
 }
 
 function getTimeArray(){

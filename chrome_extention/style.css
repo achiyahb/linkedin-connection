@@ -79,3 +79,18 @@ a{
 .tab{
     margin-top: 10px;
 }
+
+button:disabled,
+button[disabled]{
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+}
+
+#withdrawSection{
+    margin-top: 1rem;
+}
+
+#conditionWith{
+    margin-top: 1rem;
+}
