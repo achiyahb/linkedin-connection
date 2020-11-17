@@ -151,29 +151,3 @@ chrome.runtime.onMessage.addListener(function (request) {
     }
 })
 
-// function checkAllMyInvention() {
-//     if (checkInvitationMode) {
-//         checkThePagesTimePhrase()
-//     } else {
-//         if (!startWithdraw) {
-//             setTimeout(()=>{
-//                 createIndexToWithdraw()
-//             },1500)
-//         }
-//     }
-//     let finish = toTheNextPage()
-//     if (!finish && checkInvitationMode) {
-//         setTimeout(() => {
-//             console.log(moreThenDayParse)
-//             checkAllMyInvention()
-//         }, 1000)
-//     }
-// }
-
-
-
-// function backgroundConnection() {
-//     chrome.runtime.sendMessage({type: 'withdraw_Content', timesArray: moreThenDayParse}, async (response) => {
-//         return await response
-//     });
-// }
