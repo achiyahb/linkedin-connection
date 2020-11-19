@@ -2,7 +2,7 @@ let btnIndex = 0
 let withdrawCounter =0
 let startWithdraw = true
 let lastScrollBtnIndex = 0
-let trailMode =true
+let trialMode =true
 
 function toTheNextPageWithdraw() {
     let allPageButton = document.querySelectorAll('.artdeco-pagination__indicator.artdeco-pagination__indicator--number.ember-view')
@@ -95,13 +95,16 @@ function hitTheWithdrawBtn(withdrawBtn,indexToWithdraw, i){
         console.log(withdrawCounter)
     }
     setTimeout(() => {
-        if (trailMode){
+        if (trialMode){
             withdrawBtn.style = 'background-color: aqua;'
             withdrawFromPeopleInPage(indexToWithdraw, i)
         } else {
-            withdrawBtn.click()
+            document.body.style['overflow-y'] = 'scroll'
+            document.body.style.position = 'fixed'
+            fakeClick(withdrawBtn)
             setTimeout(()=>{
-                document.querySelectorAll('.artdeco-modal__confirm-dialog-btn')[1].click()
+                // window.addEventListener('scroll', noScroll)
+                document.querySelector('.artdeco-modal__confirm-dialog-btn.artdeco-button.artdeco-button--2.artdeco-button--primary.ember-view').click()
                 withdrawFromPeopleInPage(indexToWithdraw, i)
             },500)
         }
@@ -121,6 +124,23 @@ function setValuesToNextPage(){
 chrome.runtime.onMessage.addListener(function (request) {
     if (request.text === 'withdraw_start') {
         REArray = request.chosenPhraseArray
+        trialMode = request.trialMode
         createIndexToWithdraw()
     }
 })
+
+// window.addEventListener('scroll', function(e) {
+//     e.preventDefault();
+//     e.stopPropagation();
+//     let last_known_scroll_position = window.scrollY;
+// console.log(last_known_scroll_position)
+//     console.log(e)
+//
+// });
+function fakeClick(target){
+    chrome.debugger.attach(target, "1.2", function() {
+        chrome.debugger.sendCommand(target, "Input.dispatchMouseEvent", arguments)
+    })
+}
+
+

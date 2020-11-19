@@ -8,13 +8,27 @@ document.addEventListener('DOMContentLoaded', function () {
 function startToWithdraw(){
     chrome.tabs.query({currentWindow: true, active: true},
         function (tabs) {
-            for (let i = 0; i < timesArrayToWithdraw.length; i++){
-                let checked = document.querySelector(`#phrase-${i}`).checked === true
-                if (checked){
-                    chosenPhraseArray.push(timesArrayToWithdraw[i])
+            let trialMode = document.querySelector('#modes').value === 'trial'
+            let agreement = document.querySelector('#termAgreement').checked
+            if (!agreement) {
+                console.log('need to agree the terms')
+                document.querySelector('#condition').style = "color: red;"
+                setTimeout(() => {
+                    document.querySelector('#condition').style = "color: black;"
+                }, 1000)
+            } else {
+                for (let i = 0; i < timesArrayToWithdraw.length; i++){
+                    let checked = document.querySelector(`#phrase-${i}`).checked === true
+                    if (checked){
+                        chosenPhraseArray.push(timesArrayToWithdraw[i])
+                    }
                 }
-            }
-            chrome.tabs.sendMessage(tabs[0].id, {text:'withdraw_start',chosenPhraseArray: chosenPhraseArray})
+               chrome.tabs.sendMessage(tabs[0].id, {
+                   text:'withdraw_start',
+                   chosenPhraseArray: chosenPhraseArray,
+                   trialMode: trialMode,
+               })
+                }
         })
 }
 

@@ -119,8 +119,10 @@ function scrollDown(){
 }
 
 chrome.runtime.onMessage.addListener(function (request) {
-    console.log('needToConnect?',request)
+    if(request.connect){
+        console.log('needToConnect?',request)
         startToConnect(request)
+    }
 })
 
 async function backgroundConnection(){

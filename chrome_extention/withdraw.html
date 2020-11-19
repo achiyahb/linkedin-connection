@@ -27,13 +27,16 @@
         <div id="timesList"></div>
         <div id="withdrawSection">
             <span>Withdraw from the invitation requests</span>
-            <br>
-            <div id="conditionWith">
+            <br><br>
+            <span>Are you interested in running the bot in trial or real mode?</span>
+            <label for="modes"></label>
+            <select name="modes" id="modes">
+                <option value="trial">Trial</option>
+                <option value="real">Real</option>
+            </select> <br><br>
             <input type="checkbox" id="termAgreement" name="termAgreement" value="agree">
             <label for="termAgreement" id="condition">I confirm that I'm aware that the use of this bot is in my own
-                responsibility</label>
-            </div>
-                <br><br>
+                responsibility</label><br><br>
             <button id="withdrawBtn" onclick="startToConnect" disabled>witdraw</button>
             <p id="resMassage"></p>
         </div>
