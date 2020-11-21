@@ -57,7 +57,7 @@ input{
 #popup{
     width: 23rem;
     background-color: #00ffff;
-    height: 32rem;
+    min-height: 32rem;
 }
 
 a{

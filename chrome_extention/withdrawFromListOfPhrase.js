@@ -2,7 +2,7 @@ let btnIndex = 0
 let withdrawCounter = 0
 let startWithdraw = true
 let lastScrollBtnIndex = 0
-let trialMode = true
+let trialMode = false
 let example = false
 
 function toTheNextPageWithdraw() {
@@ -135,7 +135,11 @@ function setValuesToNextPage() {
 chrome.runtime.onMessage.addListener(function (request) {
     if (request.text === 'withdraw_start') {
         REArray = request.chosenPhraseArray
-        trialMode = request.trialMode
+        if (request.exeMode === 'trial'){
+            trialMode = true
+        }else if(request.exeMode === 'example'){
+            example = true
+        }
         createIndexToWithdraw()
     }
 })

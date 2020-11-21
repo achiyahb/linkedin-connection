@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function startToWithdraw(){
     chrome.tabs.query({currentWindow: true, active: true},
         function (tabs) {
-            let trialMode = document.querySelector('#modes').value === 'trial'
+            let exeMode = document.querySelector('#modes').value
             let agreement = document.querySelector('#termAgreement').checked
             if (!agreement) {
                 console.log('need to agree the terms')
@@ -27,7 +27,7 @@ function startToWithdraw(){
                chrome.tabs.sendMessage(tabs[0].id, {
                    text:'withdraw_start',
                    chosenPhraseArray: chosenPhraseArray,
-                   trialMode: trialMode,
+                   exeMode: exeMode,
                })
                 }
         })
