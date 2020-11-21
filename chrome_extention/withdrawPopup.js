@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#withdrawBtn').addEventListener('click', startToWithdraw, false)
 }, false)
 
+
 function startToWithdraw(){
     chrome.tabs.query({currentWindow: true, active: true},
         function (tabs) {
@@ -67,5 +68,11 @@ function getTimeArray(){
      chrome.runtime.sendMessage({type: 'withdraw_Popup'}, async (response) => {
         timesArrayToWithdraw =  response
         return timesArrayToWithdraw
+    });
+}
+messageToBackgroundStartDebug()
+function messageToBackgroundStartDebug(){
+    chrome.runtime.sendMessage({type: 'StartDebug'}, async (response) => {
+        timesArrayToWithdraw =  response
     });
 }

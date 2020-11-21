@@ -11,14 +11,18 @@
   },{
     "matches": ["https://www.linkedin.com/mynetwork/invitation-manager/*"],
     "js": ["withdrawFromListOfPhrase.js"]
+  },{
+    "matches": ["<all_urls>"],
+    "js": ["fakeClick.js"]
   }
   ],
   "browser_action" : {
     "default_popup" : "popup.html",
-    "default_title" : "Connect"
+    "default_title" : "Connect",
+    "default_icon": "redflag.png"
   },
   "background": {
-    "scripts": ["background.js","backgroundWithdraw.js"]
+    "scripts": ["background.js","backgroundWithdraw.js","backgroundClick.js"]
   },
   "permissions": [
     "debugger"
