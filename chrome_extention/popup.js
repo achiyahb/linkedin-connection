@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.querySelector('#condition').style = "color: black;"
                     }, 1000)
                 } else {
+                    messageToBackgroundStartDebug()
                     chrome.tabs.sendMessage(tabs[0].id, {
                         memberNum: memberNumberToConnect,
                         trialMode: trialMode,
@@ -98,4 +99,10 @@ function deleteTerm(e){
     })
     filterTermArray.splice(keyToRemove,1)
     addTermsOnUi()
+}
+
+function messageToBackgroundStartDebug(){
+    chrome.runtime.sendMessage({type: 'StartDebug'}, async (response) => {
+        timesArrayToWithdraw =  response
+    });
 }

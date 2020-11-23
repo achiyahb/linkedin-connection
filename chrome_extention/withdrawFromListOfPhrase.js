@@ -4,8 +4,13 @@ let startWithdraw = true
 let lastScrollBtnIndex = 0
 let trialMode = false
 let example = false
+let real = false
+let scrolledInThisPage = false
+let j = 0
+let theNextBtn
 
 function toTheNextPageWithdraw() {
+    scrolledInThisPage = false
     let allPageButton = document.querySelectorAll('.artdeco-pagination__indicator.artdeco-pagination__indicator--number.ember-view')
     let thisPageButton = document.querySelector('.artdeco-pagination__indicator.artdeco-pagination__indicator--number.active.ember-view')
     let pageKey
@@ -19,7 +24,8 @@ function toTheNextPageWithdraw() {
         backgroundConnection()
         return 'finish'
     } else {
-        allPageButton[pageKey - 1].querySelector('button').click()
+        let nextPageBtn = allPageButton[pageKey - 1].querySelector('button')
+        fakeClick(nextPageBtn)
     }
 }
 
@@ -48,11 +54,32 @@ function createIndexToWithdraw() {
 }
 
 function withdrawFromPeopleInPage(indexToWithdraw, i) {
+    let allWithdrawBtns = document.querySelectorAll('.invitation-card__action-btn')
     btnIndex = indexToWithdraw[i]
-    i++
-    let withdrawBtn = document.querySelectorAll('.invitation-card__action-btn')[btnIndex]
+    let withdrawBtn = allWithdrawBtns[btnIndex]
+    if(!real){
+        i++
+    } else {
+        let orderWentUp = false
+        REArray.forEach(RegE=>{
+            let REToTest= RegExp(RegE)
+          if(!REToTest.test(withdrawBtn)){
+              orderWentUp = true
+          }
+        })
+        if (!orderWentUp){
+            i++
+            btnIndex = indexToWithdraw[i]
+         withdrawBtn = allWithdrawBtns[btnIndex]
+        }
+    }
+    console.log(allWithdrawBtns)
+
     console.log(withdrawBtn)
-    if (btnIndex - lastScrollBtnIndex > 7) {
+    if (real && scrolledInThisPage){
+        return hitTheWithdrawBtn(withdrawBtn, indexToWithdraw, i)
+    } else if (btnIndex - lastScrollBtnIndex > 7) {
+        scrolledInThisPage = true
         lastScrollBtnIndex = btnIndex
         scrollToTheButton(withdrawBtn, btnIndex, indexToWithdraw, i)
     } else {
@@ -73,8 +100,13 @@ function scrollToTheButton(withdrawBtn, btnIndex, indexToWithdraw, i) {
         scrollByPlus(partToScroll)
         if (document.documentElement.scrollTop >= needToScroll) {
             clearInterval(interval)
-            lastScrollBtnIndex = btnIndex
-            hitTheWithdrawBtn(withdrawBtn, indexToWithdraw, i)
+            // when it's not in real mode, there is a 'btnIndex' arg
+            if (btnIndex){
+                lastScrollBtnIndex = btnIndex
+                hitTheWithdrawBtn(withdrawBtn, indexToWithdraw, i)
+            } else {
+                hitTheRealWithdrawBtn(withdrawBtn)
+            }
         } else if (needToScroll > heightLimit) {
             needToScroll = heightLimit
         }
@@ -103,21 +135,6 @@ function hitTheWithdrawBtn(withdrawBtn, indexToWithdraw, i) {
             withdrawBtn.click()
             let acceptBtn = document.querySelector('.artdeco-modal__confirm-dialog-btn.artdeco-button.artdeco-button--2.artdeco-button--primary.ember-view')
             acceptBtn.click()
-        } else {
-            fakeClick(withdrawBtn)
-            let intervalCounter = 0
-            let acceptInterval = setInterval(() => {
-                let acceptBtn = document.querySelector('.artdeco-modal__confirm-dialog-btn.artdeco-button.artdeco-button--2.artdeco-button--primary.ember-view')
-                if (acceptBtn) {
-                    acceptBtn.click()
-                    withdrawFromPeopleInPage(indexToWithdraw, i)
-                    clearInterval(acceptInterval)
-                } else if (intervalCounter > 4) {
-                    withdrawFromPeopleInPage(indexToWithdraw, i)
-                    clearInterval(acceptInterval)
-                }
-                intervalCounter++
-            }, 500)
         }
 
     }, randomTimeToWithdraw)
@@ -139,12 +156,13 @@ chrome.runtime.onMessage.addListener(function (request) {
             trialMode = true
         }else if(request.exeMode === 'example'){
             example = true
+        } else if (request.exeMode === 'real'){
+            real = true
+            withdrawForRealAlgorithm()
+            return
         }
         createIndexToWithdraw()
     }
 })
-
-
-
 
 

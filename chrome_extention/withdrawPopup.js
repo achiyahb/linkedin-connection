@@ -24,6 +24,7 @@ function startToWithdraw(){
                         chosenPhraseArray.push(timesArrayToWithdraw[i])
                     }
                 }
+                messageToBackgroundStartDebug()
                chrome.tabs.sendMessage(tabs[0].id, {
                    text:'withdraw_start',
                    chosenPhraseArray: chosenPhraseArray,
@@ -70,7 +71,7 @@ function getTimeArray(){
         return timesArrayToWithdraw
     });
 }
-messageToBackgroundStartDebug()
+
 function messageToBackgroundStartDebug(){
     chrome.runtime.sendMessage({type: 'StartDebug'}, async (response) => {
         timesArrayToWithdraw =  response

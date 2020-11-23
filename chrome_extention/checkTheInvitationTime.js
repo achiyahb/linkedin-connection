@@ -11,6 +11,7 @@ function checkThePagesTimePhrase() {
             let avoid = RegExp(RExp).test(phraseText)
             if (avoid) avoidPhrase = true
         })
+        if (!avoidPhrase)   console.log(phrase.innerHTML)
         if (!avoidPhrase && !moreThenDayParse.includes(phraseText)) {
             moreThenDayParse.push(phraseText)
         }

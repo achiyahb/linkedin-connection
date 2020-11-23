@@ -85,7 +85,7 @@ async function ticker(someSecBeforeClick,indexNumberArray,membersCards){
         if (stop) return
         let i = indexNumberArray[index]
         let connectButton = membersCards[i].querySelector('.full-width');
-        trialMode ? connectButton.style = 'background-color: aqua;': connectButton.click();
+        trialMode ? connectButton.style = 'background-color: aqua;': fakeClick(connectButton);
         allClicksCounter++
         index++
         if (allClicksCounter >+ numberClicksGoal){
