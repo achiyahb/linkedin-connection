@@ -11,6 +11,7 @@ let theNextBtn
 
 function toTheNextPageWithdraw() {
     scrolledInThisPage = false
+    jIncreaseCounter = 0
     let allPageButton = document.querySelectorAll('.artdeco-pagination__indicator.artdeco-pagination__indicator--number.ember-view')
     let thisPageButton = document.querySelector('.artdeco-pagination__indicator.artdeco-pagination__indicator--number.active.ember-view')
     let pageKey
@@ -25,7 +26,7 @@ function toTheNextPageWithdraw() {
         return 'finish'
     } else {
         let nextPageBtn = allPageButton[pageKey - 1].querySelector('button')
-        fakeClick(nextPageBtn)
+         nextPageBtn.click()
     }
 }
 
@@ -57,28 +58,10 @@ function withdrawFromPeopleInPage(indexToWithdraw, i) {
     let allWithdrawBtns = document.querySelectorAll('.invitation-card__action-btn')
     btnIndex = indexToWithdraw[i]
     let withdrawBtn = allWithdrawBtns[btnIndex]
-    if(!real){
         i++
-    } else {
-        let orderWentUp = false
-        REArray.forEach(RegE=>{
-            let REToTest= RegExp(RegE)
-          if(!REToTest.test(withdrawBtn)){
-              orderWentUp = true
-          }
-        })
-        if (!orderWentUp){
-            i++
-            btnIndex = indexToWithdraw[i]
-         withdrawBtn = allWithdrawBtns[btnIndex]
-        }
-    }
     console.log(allWithdrawBtns)
-
     console.log(withdrawBtn)
-    if (real && scrolledInThisPage){
-        return hitTheWithdrawBtn(withdrawBtn, indexToWithdraw, i)
-    } else if (btnIndex - lastScrollBtnIndex > 7) {
+    if (btnIndex - lastScrollBtnIndex > 7) {
         scrolledInThisPage = true
         lastScrollBtnIndex = btnIndex
         scrollToTheButton(withdrawBtn, btnIndex, indexToWithdraw, i)
@@ -100,12 +83,20 @@ function scrollToTheButton(withdrawBtn, btnIndex, indexToWithdraw, i) {
         scrollByPlus(partToScroll)
         if (document.documentElement.scrollTop >= needToScroll) {
             clearInterval(interval)
+            if (btnIndex === 'dontHit'){
+                return 'finish_scroll'
+            }
             // when it's not in real mode, there is a 'btnIndex' arg
             if (btnIndex){
                 lastScrollBtnIndex = btnIndex
                 hitTheWithdrawBtn(withdrawBtn, indexToWithdraw, i)
             } else {
-                hitTheRealWithdrawBtn(withdrawBtn)
+                if(firstScroll){
+                    firstScroll = false
+                    scrollToTheButton(withdrawBtn, btnIndex)
+                }else{
+                    hitTheRealWithdrawBtn(withdrawBtn)
+                }
             }
         } else if (needToScroll > heightLimit) {
             needToScroll = heightLimit
